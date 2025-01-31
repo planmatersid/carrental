@@ -1,0 +1,12 @@
+{% extends 'rental/base.html' %}
+{ % block title %}SignUp - Car Rental
+ {% block content %}
+<h2 style="text-align: center; 
+margin-top: 20px; 
+color: rgb(0, 0, 0);">Sign Up</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Sign Up</button>
+</form>
+{% endblock %}

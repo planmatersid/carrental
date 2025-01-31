@@ -1,0 +1,48 @@
+{% extends 'rental/base.html' %}
+{% load static %}
+
+{% block title %}Login - Car Rental{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home - Car Rental</title>
+    <style>
+        body {
+            background-image: url("{% static 'images/back.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 1650px;
+            margin: 0;
+        }
+        </style>
+</head>
+<body>
+    <h1 style="text-align: center; 
+               margin-top: 20px; 
+               color: rgb(219, 217, 217);">MANAGE CARS</h1>
+    <a href="{% url 'add_car' %}" 
+    style="background-color: #e26600; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; position: absolute; top:70px; right: 20px;">
+    Add Car
+ </a>
+ 
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 20px;">
+        {% for car in cars %}
+        <div style="border: 1px solid #ccc; background-color: rgb(255, 255, 255); padding: 20px; border-radius: 50px; text-align: center; width: 550px;">
+            <h3 style="margin: 0 0 10px 0;">{{ car.make }} {{ car.model }}</h3>
+            <img src="{{ car.image.url }}" alt="Car Image" style="width: 500px; height: auto; border-radius: 5px;">
+            <p style="margin: 10px 0;">Price per day: ${{ car.price_per_day }}</p>
+                <form method="POST" action="{% url 'remove_car' car.id %}">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: #cf1b0e; color: white; border: none; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Remove</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends 'rental/base.html' %}
+{% load static %}
+
+{% block title %}Login - Car Rental{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car - Car Rental</title>
+</head>
+<body style="margin: 0; padding: 0; background-size: cover; background-color: beige; background-repeat: no-repeat; background-position: center; font-family: Arial, sans-serif; color: #000;">
+    <h1>Add a New Car</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="make">Make:</label>
+        <input type="text" id="make" name="make" required>
+        <br>
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" required>
+        <br>
+        <label for="price_per_day">Price per day:</label>
+        <input type="number" id="price_per_day" name="price_per_day" required>
+        <br>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" required>
+        <br>
+        <button type="submit">Add Car</button>
+    </form>
+{% endblock %}
+</body>
+</html>

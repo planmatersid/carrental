@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <style>
+            body {
+                background-image: url("{% static 'images/login_background.jpg' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                display: flex;  
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+                color: #000000;
+            }
+            .login-container {
+                background: rgba(255, 255, 255, 0.9);
+                padding: 30px 40px;
+                border-radius: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                width: 500px;
+                height: 350px;
+                text-align: center;
+            }
+            .form-group {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+            .form-group label {
+                flex-basis: 40%;
+                text-align: left;
+                margin-right: 10px;
+            }
+            .form-group input[type="text"],
+            .form-group input[type="password"] {
+                flex-basis: 55%;
+                padding: 8px;
+                font-size: 14px;
+                box-sizing: border-box;
+            }
+            .password-container {
+                position: relative;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            .password-input {
+                width: 100%;
+                padding: 8px;
+                padding-right: 30px; /* Space for the toggle icon */
+                box-sizing: border-box;
+                font-size: 14px;
+            }
+            .toggle-password {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                color: #555;
+            }
+            input[type="submit"] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-top: 20px;
+            }
+            .error-message {
+                color: red;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login-container">
+            <h2>Login</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="login_option" value="login_as_user" required> Login as User
+                    </label>
+                    <label>
+                        <input type="radio" name="login_option" value="login_as_admin" required> Login as Admin
+                    </label>
+                </div>
+                <div><a href="{% url 'signup' %}">Sign Up</a></div>    
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <label for="username" style="display: block; margin-bottom: 5px;">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required 
+                           style="width: 100%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <label for="password" style="display: block; margin-bottom: 5px;">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required 
+                           style="width: 100%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+    
+                <div>
+                    <input type="checkbox" onclick="togglePassword()"> Show Password
+                </div>
+    
+                <button type="submit">Login</button>
+            </form>
+            {% if messages %}
+                <div class="error-message">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        <script>
+            function togglePassword() {
+                var password = document.getElementById("password");
+                password.type = password.type === "password" ? "text" : "password";
+            }
+        </script>
+    </body>
+</html>
